@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
+import android.widget.TextView;
 
 import java.util.Random;
 
@@ -14,6 +15,28 @@ public class MainActivity extends AppCompatActivity {
     public static final int GRID_SIZE = 3;
     private GridLayout grid;
     private boolean cellState [][];
+
+    private TextView score;
+
+    View.OnClickListener buttonListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Button current = (Button) v;
+            for (int i = 0; i < grid.getChildCount(); i++) {
+                Button gridButton = (Button) grid.getChildAt(i);
+
+                if (gridButton == current) {
+                    int row = i / GRID_SIZE;
+                    int col = i % GRID_SIZE;
+
+
+                    cellState[row][col] = !cellState[row][col];
+                }
+            }
+
+            update();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,11 +47,25 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         grid = findViewById(R.id.light_grid);
 
-//      randomize();
+        randomize();
 
-        recolor();
+        score = findViewById(R.id.score);
+
+        update();
+
+        for (int i = 0; i < grid.getChildCount(); i++) {
+            Button gridButton = (Button) grid.getChildAt(i);
+
+            gridButton.setOnClickListener(buttonListener);
+        }
+
+
     }
 
+    public void update(){
+        recolor();
+        score.setText(getString(R.string.score_format, countOn()));
+    }
     public void recolor(){
         for (int i = 0; i < grid.getChildCount(); i++) {
             Button gridButton = (Button) grid.getChildAt(i);
@@ -54,6 +91,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
+    public int countOn(){
+        int count = 0;
+        for(int i =0; i< GRID_SIZE; i++){
+            for(int j =0; j< GRID_SIZE; j++){
+                if(cellState[i][j]) count++;
+            }
+        }
+        return count;
+    }
 
 }

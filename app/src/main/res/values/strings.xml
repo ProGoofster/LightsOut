@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">LightsOut</string>
+
+    <string name="score_format">Score: %d</string>
 </resources>

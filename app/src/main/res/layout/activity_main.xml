@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/lightsJake"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World!"
@@ -49,5 +49,13 @@
 
         <Button style="@style/LightButton" />
     </GridLayout>
+
+    <TextView
+        android:id="@+id/score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Score: 0"
+        tools:layout_editor_absoluteX="174dp"
+        tools:layout_editor_absoluteY="148dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
