@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView score;
 
-    View.OnClickListener buttonListener = new View.OnClickListener() {
+    View.OnClickListener gridButtonListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Button current = (Button) v;
@@ -56,15 +56,22 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < grid.getChildCount(); i++) {
             Button gridButton = (Button) grid.getChildAt(i);
 
-            gridButton.setOnClickListener(buttonListener);
+            gridButton.setOnClickListener(gridButtonListener);
         }
 
+        Button resetButton = findViewById(R.id.reset);
+        resetButton.setOnClickListener(v -> reset());
 
     }
 
     public void update(){
         recolor();
         score.setText(getString(R.string.score_format, countOn()));
+    }
+
+    public void reset(){
+        cellState = new boolean[][]{{false, false, false}, {false, false, false}, {false, false, false}};
+        update();
     }
     public void recolor(){
         for (int i = 0; i < grid.getChildCount(); i++) {
